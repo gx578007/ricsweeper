@@ -1,0 +1,24 @@
+div center p
+{
+   font-size: 45px;
+}
+
+#losingMsg img
+{
+   width: 250px;
+}
+
+#gameRegion
+{
+   border: 3px black solid;
+   display: block;
+}
+
+.grid
+{
+   float: left;
+   background: white;
+   opacity: 0.5;
+   -webkit-border-radius: 50%; -moz-border-radius: 50%;
+   padding: 0;
+}
