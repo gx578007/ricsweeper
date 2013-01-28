@@ -149,7 +149,7 @@ var expand = function(btn){
       return;
    var pos = Number(btn.id);
    var expandRange = shift.length; // 3-by-3
-   if ( tipStatus[pos] == 0 ) // cross-shaped
+   if ( tipStatus[pos] > 0 ) // cross-shaped
       expandRange = 4;
    for ( var k = 0 ; k < expandRange ; ++k ){ 
       var target = pos + Number(shift[k]);
