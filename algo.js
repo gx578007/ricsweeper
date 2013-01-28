@@ -21,6 +21,7 @@ dimObj.addEventListener('keypress',function(e) { if(e.keyCode==13 && !isNaN(dimO
 var size, wideSize;
 var count, clickedCount; // for incremental check of game results
 var bombstatus = new Array(), clickedStatus = new Array(), tipStatus = new Array();
+var markStatus = new Array();
 var shift; // for traversing the nearby 3-by-3 grids
 // color the tips of bomb number
 var textColor = new Array("gray","blue","green","red","yellow","dark-green","brown","black","white");
@@ -46,6 +47,7 @@ var reset = function(size){
          if ( bombstatus[i*wideSize+j] )
             count++;
          tipStatus[i*wideSize+j] = 0;
+         markStatus[i*wideSize+j] = 0;
       }
    }
    for ( var i = 1 ; i < 1+size ; ++i ){
@@ -105,10 +107,12 @@ var compute = function(btn){
 }
 
 var toggleMark = function(btn){
-   if ( btn.innerHTML == "" )
+   var id = Number(btn.id);
+   if ( !markStatus[id] )
       btn.innerHTML = "<img src='stop.png' height='70%'></img>";
    else
       btn.innerHTML = "";
+   markStatus[id] = !markStatus[id];
 }
 
 /* let the pressed button presented as pressed */
@@ -144,8 +148,10 @@ var expand = function(btn){
    if ( btn == null )
       return;
    var pos = Number(btn.id);
-   for ( var k = 0 ; k < 4 ; ++k ){ // cross-shaped expansion
+   for ( var k = 0 ; k < shift.length ; ++k ){ 
       var target = pos + Number(shift[k]);
+      if ( markStatus[target] )
+         return;
       if ( (tipStatus[target]==0) && !clickedStatus[target] && !bombstatus[target]){
          pressIt(document.getElementById(target));
          expand(document.getElementById(target));
